@@ -25,7 +25,7 @@
     <!-- Bagian Nama Perusahaan -->
     <label for="nama">Nama Perusahaan : </label>
       <div class="col-sm-7">
-        <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Perusahaan..">
+        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Perusahaan..">
       </div>
       <br>
       
@@ -33,18 +33,14 @@
 <form>
     <div class="col-sm-7">
       <label class="mr-sm-2" for="inlineFormCustomSelect">Jenis Member :</label>
-      <select name="member">
-        <option selected>Pilih Jenis Member..</option>
+      <select name="member" class="form-control">
+        <option value="">Pilih Jenis Member..</option>
         <option value="1">Silver</option>
         <option value="2">Gold</option>
         <option value="3">Platinum</option>
       </select>
     </div>
     <br>
-</form>
-
-      <!-- Bagian Tahun -->
-    <form class="form-horizontal">
         <div class="form-group">
     <label for="tahun">Tahun Bergabung :</label>
       <div class="col-sm-7">
@@ -54,14 +50,32 @@
       <button type="submit" name="cetak" class="btn btn-primary">Cetak</button>
     </form>
     <!-- Bagian Proses -->
-    <?php 
+    <?php
+    if (isset($_POST['cetak'])) {
       switch($_POST['member']){
           case '1':  //Sertif silver
-           
-          $name = strtoupper($_POST['nama']);
-          $nama_len = strlen($_POST['nama']);
+            $image = "silver.png";
+            break;
+        
+          case '2':
+            $image = "gold.png";
+            break;
 
-          $image = "silver.png";
+          case '3':
+            $image = "platinum.png";
+            break;
+        
+        default:
+        echo "Masukkan Pilihan";
+      }
+
+      $name = strtoupper($_POST['nama']);
+          $nama_len = strlen($_POST['nama']);
+          $tahun = $_POST['tahun'];
+          if ($tahun) {
+              $font_size_tahun=10;
+          }
+          
           $createimage = imagecreatefrompng($image);
           $output = "sertifikat.png";
 
@@ -97,7 +111,7 @@
             $font_size =10;
           }
 
-          $certificate_text = $nama;
+          $certificate_text = $name;
           
           //untuk font
           $drFont = dirname(__FILE__)."/prodsans.ttf";
@@ -107,19 +121,13 @@
           $text1 = imagettftext($createimage, $font_size, $rotation, $origin_x, $origin_y, $black,$drFont, $certificate_text);
 
           //Munculin tahun
-          $text2 = imagettftext($createimage, $font_size_occupation, $rotation, $origin1_x+2, $origin1_y, $black, $drFont1, $tahun);
+          $text2 = imagettftext($createimage, $font_size_tahun, $rotation, $origin1_x+2, $origin1_y, $black, $drFont1, $tahun);
 
           imagepng($createimage,$output,3);
-
-
-            break;
-        
-          case '2':
-            break;
-
-          case '3':
-            break;
-        
-        default:
-        echo "Masukkan Pilihan";
-      }
+?>
+          <img src="<?php echo $output; ?>">
+          <br> 
+          <br>
+<?php
+          var_dump(getimagesize($output));
+    }
