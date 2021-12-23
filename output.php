@@ -35,70 +35,91 @@ p {
               $font_size_tahun=10;
           }
           
-          $createimage = imagecreatefrompng($image);
-          $output = "sertifikat.png";
+          // $createimage = imagecreatefrompng($image);
+          // $output = "sertifikat.png";
 
-          $white = imagecolorallocate($createimage, 205, 245, 255);
-          $black = imagecolorallocate($createimage, 0, 0, 0);
+          // $white = imagecolorallocate($createimage, 205, 245, 255);
+          // $black = imagecolorallocate($createimage, 0, 0, 0);
           
-          $rotation = 0;
-          $origin_x = 200;
-          $origin_y=260;
-          $origin1_x = 120;
-          $origin1_y=90;
+          // $rotation = 0;
+          // $origin_x = 200;
+          // $origin_y=260;
+          // $origin1_x = 120;
+          // $origin1_y=90;
           
           if($nama_len<=7){
-            $font_size = 25;
+            $font_size = 26;
             $origin_x = 190;
+            $left = "38%";
           }
           elseif($nama_len<=12){
-            $font_size = 30;
+            $font_size = 28;
+            $left = "36%";
           }
           elseif($nama_len<=15){
             $font_size = 26;
+            $left = "35%";
           }
           elseif($nama_len<=20){
-             $font_size = 18;
+            $font_size = 22;
+            $left = "33%";
           }
           elseif($nama_len<=22){
             $font_size = 15;
+            $left = "32%";
           }
           elseif($nama_len<=33){
             $font_size=11;
+            $left = "30%";
           }
           else {
             $font_size =10;
+            $left = "30%";
           }
 
-          $certificate_text = $name;
+          // $certificate_text = $name;
           
-          //untuk font
-          $drFont = dirname(__FILE__)."/prodsans.ttf";
+          // //untuk font
+          // $drFont = dirname(__FILE__)."/prodsans.ttf";
 
-          //Munculin nama
-          $text1 = imagettftext($createimage, $font_size, $rotation, $origin_x, $origin_y, $black,$drFont, $certificate_text);
+          // //Munculin nama
+          // $text1 = imagettftext($createimage, $font_size, $rotation, $origin_x, $origin_y, $black,$drFont, $certificate_text);
 
           //Munculin tahun
         //   $text2 = imagettftext($createimage, $font_size_tahun, $rotation, $origin1_x+2, $origin1_y, $black, $drFont1, $tahun);
 
-          imagepng($createimage,$output,3);
+          // imagepng($createimage,$output,3);
 
-          $imgSize=  getimagesize($output);
+          $imgSize=  getimagesize($image);
           $imgWidth = $imgSize[0];
           $imgHeight = $imgSize[1];
           ?>
-          <div id="wrapper"></div>
-          <!-- <img src="<?php //echo $output; ?>"> -->
+          <div id="wrapper">
+          <div id='ct' class='row h-auto'><div class='col-12'><img id="images" class="img-fluid" src="<?php echo $image; ?>"><p id='txt'></p></div></div>
+          </div>
+          
           <script type="text/javascript">
             $(document).ready(function() {
               var imgW = <?= $imgWidth;?>;
               var imgH = <?= $imgHeight;?>;
               var div = document.createElement('div');
               div.id = 'content';
+              // div.classList.add('container');
               div.style.width=imgW;
               div.style.height=imgH;
+              div.style.position="relative";
               document.getElementById('wrapper').appendChild(div);
-              $(div).wrapAll("<div class='row d-flex justify-content-center'><div class='col-12'><p id='text'></p></div></div>");
+              var ct = document.getElementById('ct');
+              var imgContainer = document.getElementById('images');
+              div.appendChild(ct);
+              let font = document.getElementById('txt');
+              font.classList.add('text-center','text-justify');
+              font.style.top = "50%";
+              font.style.left = "<?= $left; ?>";
+              font.style.position= "absolute";
+              font.style.fontSize = <?= $font_size;?>;
+              font.innerHTML="<?= $name;?>";
+              console.log(<?= $nama_len;?>);
             });
           </script>
 <?php
