@@ -12,7 +12,7 @@ p {
 <?php
     if (isset($_POST['cetak'])) {
       switch($_POST['member']){
-          case '1':  //Sertif silver
+          case '1':  
             $image = "silver.png";
             break;
         
@@ -48,32 +48,37 @@ p {
           // $origin1_y=90;
           
           if($nama_len<=7){
-            $font_size = 26;
-            $origin_x = 190;
-            $left = "38%";
+            $font_size = 40;
+            $top = "40%";
+            $left = "14.5%";
           }
           elseif($nama_len<=12){
-            $font_size = 28;
-            $left = "36%";
+            $font_size = 40;
+            $top = "40%";
+            $left = "11.3%";
           }
           elseif($nama_len<=15){
-            $font_size = 26;
-            $left = "35%";
+            $font_size = 40;
+            $top = "40%";
+            $left = "9.4%";
           }
           elseif($nama_len<=20){
-            $font_size = 22;
-            $left = "33%";
+            $font_size = 40;
+            $top = "40%";
+            $left = "6.5%";
           }
           elseif($nama_len<=22){
-            $font_size = 15;
-            $left = "32%";
+            $font_size = 40;
+            $top = "40%";
+            $left = "5.5%";
           }
           elseif($nama_len<=33){
-            $font_size=11;
-            $left = "30%";
+            $font_size = 40;
+            $top = "40%";
+            $left = "7.5%";
           }
           else {
-            $font_size =10;
+            $font_size =40;
             $left = "30%";
           }
 
@@ -114,13 +119,17 @@ p {
               div.appendChild(ct);
               let font = document.getElementById('txt');
               font.classList.add('text-center','text-justify');
-              font.style.top = "50%";
+              font.style.top = "<?= $top; ?>";
               font.style.left = "<?= $left; ?>";
               font.style.position= "absolute";
               font.style.fontSize = <?= $font_size;?>;
               font.innerHTML="<?= $name;?>";
               console.log(<?= $nama_len;?>);
+              
             });
+            
           </script>
+          <!--Tombol Download-->
+          <a href="<?php echo $document; ?>" class="btn btn-success">Unduh Sertifikat</a>
 <?php
     }
