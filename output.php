@@ -4,16 +4,16 @@
   @font-face {
     font-family: prodsans;
     src: url(./prodsans.ttf);
+  }
+
+  p {
+    font-family: prodsans;
     background: #081B3E;
     background: -webkit-repeating-linear-gradient(to top left, #081B3E 0%, #015C86 25%, #081B3E 50%, #015C86 75%, #081B3E 100%);
     background: -moz-repeating-linear-gradient(to top left, #081B3E 0%, #015C86 25%, #081B3E 50%, #015C86 75%, #081B3E 100%);
     background: repeating-linear-gradient(to top left, #081B3E 0%, #015C86 25%, #081B3E 50%, #015C86 75%, #081B3E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-
-  p {
-    font-family: prodsans;
   }
 </style>
 <?php
@@ -43,39 +43,39 @@ if (isset($_POST['cetak'])) {
     $topthn ="35%";
     $leftthn="40%";
   }
-  if ($nama_len <= 7) {
-    $font_size = 95;
-    $top = "41%";
-    $left = "40%";
+  if ($nama_len <= 8) {
+    $font_size = 120;
+    $top = "37%";
+    $left = "36%";
     
   } elseif ($nama_len <= 12) {
-    $font_size = 95;
-    $top = "41%";
-    $left = "30%";
+    $font_size = 120;
+    $top = "37%";
+    $left = "28%";
   } elseif ($nama_len <= 15) {
-    $font_size = 95;
-    $top = "41%";
-    $left = "26%";
+    $font_size = 120;
+    $top = "37%";
+    $left = "22%";
   } elseif ($nama_len <= 18) {
-    $font_size = 95;
-    $top = "41%";
-    $left = "23%";
+    $font_size = 120;
+    $top = "37%";
+    $left = "20%";
     
   }elseif ($nama_len <= 20) {
-    $font_size = 95;
-    $top = "41%";
-    $left = "17%";
+    $font_size = 120;
+    $top = "37%";
+    $left = "14%";
   } elseif ($nama_len <= 22) {
-    $font_size = 95;
-    $top = "41%";
-    $left = "18%";
+    $font_size = 120;
+    $top = "37%";
+    $left = "9%";
   } elseif ($nama_len <= 28) {
-    $font_size = 90;
-    $top = "41%";
-    $left = "11%";
+    $font_size = 95;
+    $top = "39%";
+    $left = "7%";
   } else {
     $font_size = 95;
-    $top = "40%";
+    $top = "39%";
     $left = "1%";
   }
 
@@ -119,7 +119,7 @@ if (isset($_POST['cetak'])) {
       font.innerHTML = "<?= $name; ?>";
       //tahun
       let font1 = document.getElementById('txt1');
-      font1.classList.add('text-center', 'text-justify');
+      font1.classList.add('text-right');
       font1.style.topthn = "<?= $top; ?>";
       font1.style.leftthn = "<?= $left; ?>";
       //font1.style.position = "absolute";
