@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- plugins -->
+<script src="html2canvas.js"></script>
+<script src="js/all.min.js"></script>
 <style>
   @font-face {
     font-family: prodsans;
@@ -15,6 +18,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  
 </style>
 <?php
 if (isset($_POST['cetak'])) {
@@ -40,39 +45,39 @@ if (isset($_POST['cetak'])) {
   $tahun = $_POST['tahun'];
   if ($tahun) {
     $font_size_tahun = 50;
-    $topthn ="35%";
-    $leftthn="40%";
+    $bot ="23.5%";
+    $right="39%";
   }
   if ($nama_len <= 8) {
     $font_size = 120;
-    $top = "37%";
+    $top = "40%";
     $left = "36%";
     
   } elseif ($nama_len <= 12) {
     $font_size = 120;
-    $top = "37%";
+    $top = "40%";
     $left = "28%";
   } elseif ($nama_len <= 15) {
     $font_size = 120;
-    $top = "37%";
+    $top = "40%";
     $left = "22%";
   } elseif ($nama_len <= 18) {
     $font_size = 120;
-    $top = "37%";
-    $left = "20%";
+    $top = "40%";
+    $left = "15%";
     
   }elseif ($nama_len <= 20) {
     $font_size = 120;
-    $top = "37%";
+    $top = "40%";
     $left = "14%";
   } elseif ($nama_len <= 22) {
     $font_size = 120;
-    $top = "37%";
-    $left = "9%";
+    $top = "40%";
+    $left = "11%";
   } elseif ($nama_len <= 28) {
     $font_size = 95;
-    $top = "39%";
-    $left = "7%";
+    $top = "41.5%";
+    $left = "9%";
   } else {
     $font_size = 95;
     $top = "39%";
@@ -85,20 +90,22 @@ if (isset($_POST['cetak'])) {
 ?>
   <div id="wrapper">
     <div id='ct' class='row h-auto'>
-      <div class='col-12'><img id="images" class="img-fluid" src="<?php echo $image; ?>">
+      <div class='col-12'>
+        <img id="images" class="img-fluid" src="<?php echo $image; ?>">
         <p id='txt'></p>
         <p id='txt1'></p>
       </div>
     </div>
   </div>
-  <!--Tombol Download-->
-  <center>
-    <a href="<?php echo $document; ?>" class="btn btn-success">Unduh Sertifikat</a>
-  </center>
+  <div class="row justify-content-center d-flex">
+    <button class="btn btn-success mx-4" id="btnshow">Show &emsp;<i class="fas fa-eye"></i></button>
+    <a type="button" class="text-white btn btn-success mx-2" id="btndwl">Download &emsp;  <i class="fas fa-download"></i></a type="button">
+  </div>
 
+
+  <!--Tombol Download-->
   <script type="text/javascript">
-    $(document).ready(function() {
-      var imgW = <?= $imgWidth; ?>;
+    var imgW = <?= $imgWidth; ?>;
       var imgH = <?= $imgHeight; ?>;
       var div = document.createElement('div');
       div.id = 'content';
@@ -109,25 +116,50 @@ if (isset($_POST['cetak'])) {
       var ct = document.getElementById('ct');
       var imgContainer = document.getElementById('images');
       div.appendChild(ct);
+      $('#wrapper').hide();
       //nama
       let font = document.getElementById('txt');
       font.classList.add('text-center', 'text-justify');
       font.style.top = "<?= $top; ?>";
       font.style.left = "<?= $left; ?>";
       font.style.position = "absolute";
-      font.style.fontSize = <?= $font_size; ?>;
+      font.style.fontSize = "<?= $font_size; ?>";
       font.innerHTML = "<?= $name; ?>";
       //tahun
       let font1 = document.getElementById('txt1');
       font1.classList.add('text-right');
-      font1.style.topthn = "<?= $top; ?>";
-      font1.style.leftthn = "<?= $left; ?>";
-      //font1.style.position = "absolute";
+      font1.style.bottom = "<?= $bot; ?>";
+      font1.style.right = "<?= $right; ?>";
+
+      //fontstyle_tahun
+
+
+
+      font1.style.position = "absolute";
       font1.style.fontSize = <?= $font_size_tahun; ?>;
       font1.innerHTML = "<?= $tahun; ?>";
-
-
-      console.log(<?= $nama_len; ?>);
+      var cvs;
+    $(document).ready(function() {
+      $('#btnshow').on('click',function(e) {
+        e.preventDefault;
+        $('#wrapper').show();
+        var wrap = $('#wrapper');
+        html2canvas(wrap, {
+          onrendered: function(canvas){
+              console.log(canvas);
+              cvs = canvas;
+              // cvs = canvas;
+              // $('#wrapper').append(canvas);
+              // $('#ct').empty();
+            }
+          });
+      })
+      $('#btndwl').on('click',function(df) {
+        df.preventDefault;
+        var imgdata = cvs.toDataURL("image/png");
+        let newData = imgdata.replace(/^data:image\/png/,"data:application/octet-stream");
+        $('#btndwl').attr("download","sertifikat.png").attr("href",newData);
+      });
     });
   </script>
 <?php
