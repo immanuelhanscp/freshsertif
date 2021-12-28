@@ -4,7 +4,7 @@
 <script src="html2canvas.js"></script>
 <script src="js/all.min.js"></script>
 <style>
-  @font-face {
+   @font-face {
     font-family: prodsans;
     src: url(./prodsans.ttf);
   }
@@ -38,15 +38,23 @@ if (isset($_POST['cetak'])) {
 
     default:
       echo "Masukkan Pilihan";
+
   };
+
+  $fontfam = "prodsans";
+  $bg1 = "-webkit-repeating-linear-gradient(to top left, #081B3E 0%, #015C86 25%, #081B3E 50%, #015C86 75%, #081B3E 100%)";
+  $bg2 = "repeating-linear-gradient(to top left, #081B3E 0%, #015C86 25%, #081B3E 50%, #015C86 75%, #081B3E 100%)";
+  $bg3 = "repeating-linear-gradient(to top left, #081B3E 0%, #015C86 25%, #081B3E 50%, #015C86 75%, #081B3E 100%)";
+  $bg4 = "-webkit-background-clip: text";
+  $bg5 = "-webkit-text-fill-color: transparent";
 
   $name = strtoupper($_POST['nama']);
   $nama_len = strlen($_POST['nama']);
   $tahun = $_POST['tahun'];
   if ($tahun) {
-    $font_size_tahun = 50;
-    $bot ="23.5%";
-    $right="39%";
+    $font_size_tahun = 36;
+    $bot ="23.9%";
+    $right="41.6%";
   }
   if ($nama_len <= 8) {
     $font_size = 120;
@@ -123,6 +131,14 @@ if (isset($_POST['cetak'])) {
       font.style.top = "<?= $top; ?>";
       font.style.left = "<?= $left; ?>";
       font.style.position = "absolute";
+      font.style.fontFamily = "<?= $fontfam ?>";
+      font.style.color = "#081B3E";
+      font.style.color = "<?= $bg1 ?>";
+      font.style.color = "<?= $bg2 ?>";
+      font.style.color = "<?= $bg3 ?>";
+      font.style.color = "<?= $bg4 ?>";
+      font.style.color = "<?= $bg5 ?>";
+      
       font.style.fontSize = "<?= $font_size; ?>";
       font.innerHTML = "<?= $name; ?>";
       //tahun
@@ -130,11 +146,6 @@ if (isset($_POST['cetak'])) {
       font1.classList.add('text-right');
       font1.style.bottom = "<?= $bot; ?>";
       font1.style.right = "<?= $right; ?>";
-
-      //fontstyle_tahun
-
-
-
       font1.style.position = "absolute";
       font1.style.fontSize = <?= $font_size_tahun; ?>;
       font1.innerHTML = "<?= $tahun; ?>";
