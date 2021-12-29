@@ -53,8 +53,8 @@ if (isset($_POST['cetak'])) {
   $tahun = $_POST['tahun'];
   if ($tahun) {
     $font_size_tahun = 36;
-    $bot ="23.9%";
-    $right="41.6%";
+    $bot ="24.5%";
+    $right="41.5%";
   }
   if ($nama_len <= 8) {
     $font_size = 120;
@@ -72,8 +72,7 @@ if (isset($_POST['cetak'])) {
   } elseif ($nama_len <= 18) {
     $font_size = 120;
     $top = "40%";
-    $left = "15%";
-    
+    $left = "17%";
   }elseif ($nama_len <= 20) {
     $font_size = 120;
     $top = "40%";
@@ -82,10 +81,15 @@ if (isset($_POST['cetak'])) {
     $font_size = 120;
     $top = "40%";
     $left = "11%";
+  } elseif ($nama_len <= 25) {
+    $font_size = 100;
+    $top = "41%";
+    $left = "9.5%";
   } elseif ($nama_len <= 28) {
     $font_size = 95;
     $top = "41.5%";
     $left = "9%";
+    
   } else {
     $font_size = 95;
     $top = "39%";
@@ -159,9 +163,7 @@ if (isset($_POST['cetak'])) {
           onrendered: function(canvas){
               console.log(canvas);
               cvs = canvas;
-              // cvs = canvas;
-              // $('#wrapper').append(canvas);
-              // $('#ct').empty();
+              
             }
           });
       })
