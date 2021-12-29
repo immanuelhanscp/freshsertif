@@ -53,8 +53,8 @@ if (isset($_POST['cetak'])) {
   $tahun = $_POST['tahun'];
   if ($tahun) {
     $font_size_tahun = 36;
-    $bot ="24.5%";
-    $right="41.5%";
+    $bot ="24%";
+    $right="41%";
   }
   if ($nama_len <= 8) {
     $font_size = 120;
