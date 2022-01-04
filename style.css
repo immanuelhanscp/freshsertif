@@ -1,5 +1,5 @@
 .fontstyle{
-    background: -webkit-linear-gradient(0deg, #081b3e 0%, #48abe0 100%);
+    background: "-webkit-gradient(linear,30deg, #081b3e 0%, #48abe0 100%)";
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
