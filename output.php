@@ -106,7 +106,7 @@ if (isset($_POST['cetak'])) {
   <div class="row justify-content-center d-flex">
     <button class="btn btn-success mx-4" id="btnshow">Show &emsp;<i class="fas fa-eye"></i></button>
     <a type="button" class="text-white btn btn-success mx-2" id="btndwl">Download &emsp; <i class="fas fa-download"></i></a type="button">
-    <a type="button" class="text-white btn btn-success mx-2" id="pdfdwl">PDF &emsp; <i class="fas fa-download"></i></a type="button">
+    <a type="button" class="text-white btn btn-success mx-2" id="pdfdwl">PDF &emsp; <i class="fas fa-pdf"></i></a type="button">
   </div>
 
 
@@ -140,20 +140,21 @@ if (isset($_POST['cetak'])) {
     font1.style.bottom = "<?= $bot; ?>";
     font1.style.right = "<?= $right; ?>";
     font1.style.position = "absolute";
-    font1.style.fontSize = <?= $font_size_tahun; ?>;
+    font1.style.fontSize = "<?= $font_size_tahun; ?>";
     font1.innerHTML = "<?= $tahun; ?>";
     var cvs;
     $(document).ready(function() {
       $('#btnshow').on('click', function(e) {
         e.preventDefault;
-        var wrap = $('#wrapper');
         $('#wrapper').show();
+        var wrap = $('#content');
         var x = $("#txt").offset().left;
         var y = $("#txt").offset().top;
-        var x1 = $("#txt").offset().left;
-        var y1 = $("#txt").offset().top;
-  
+        y = y + (0.2 * y);
+        var x1 = $("#txt1").offset().left;
+        var y1 = $("#txt1").offset().top;
         console.log('x: ' + x + 'y: ' + y);
+        console.log('x1: ' + x1 + 'y1: ' + y1);
         html2canvas(wrap, {
           onrendered: function(canvas) {
             console.log(canvas);
@@ -165,14 +166,30 @@ if (isset($_POST['cetak'])) {
             grad.addColorStop("0.75", "#015C86");
             grad.addColorStop("1", "#081B3E");
             ctx.fillStyle = grad;
+            ctx.font = "<?= $font_size."px ".$fontfam; ?>";
             ctx.fillText(font.innerHTML, x, y);
+
+            var ctx1 = canvas.getContext('2d');
+            let grd = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            grd.addColorStop("0", "#081B3E");
+            grd.addColorStop("0.25", "#015C86");
+            grd.addColorStop("0.5", "#081B3E");
+            grd.addColorStop("0.75", "#015C86");
+            grd.addColorStop("1", "#081B3E");
+            ctx1.fillStyle = grd;
+            //ctx1.font = "<?= $font_size_tahun."px ".$fontfam; ?>";
+            //ctx1.fillText(font1.innerHTML,x1,y1);
+            
             cvs = canvas;
+            
           }
         });
       })
       //png
       $('#btndwl').on('click', function(df) {
         df.preventDefault;
+        $('#txt').empty();
+        $('#txt1').empty();
         var imgdata = cvs.toDataURL("image/png");
         let newData = imgdata.replace(/^data:image\/png/, "data:application/octet-stream");
         $('#btndwl').attr("download", "sertifikat.png").attr("href", newData);
